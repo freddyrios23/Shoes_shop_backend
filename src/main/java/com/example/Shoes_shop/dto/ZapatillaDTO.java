@@ -7,6 +7,7 @@ public class ZapatillaDTO {
     private Integer id;
     private String nombre;
     private Integer precio;
+    private String imagen;
     private Integer marcaId;
     private String nombreMarca;
     private BoletaDTO boleta;

@@ -58,7 +58,7 @@ public class ZapatillasValidaciones {
         dto.setId(zapatilla.getId());
         dto.setNombre(zapatilla.getNombre());
         dto.setPrecio(zapatilla.getPrecio());
-
+        dto.setImagen(zapatilla.getImagen());
         dto.setMarcaId(zapatilla.getMarca().getId());
         dto.setNombreMarca(zapatilla.getMarca().getNombre());
 
