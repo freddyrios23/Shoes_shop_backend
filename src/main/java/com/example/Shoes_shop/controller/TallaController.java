@@ -18,13 +18,18 @@ import com.example.Shoes_shop.dto.TallaDTO;
 import com.example.Shoes_shop.model.Talla;
 import com.example.Shoes_shop.service.TallaService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+
+@Tag(name = "Tallas", description = "Endpoints para gestionar las tallas de calzado")
 @RestController
 @RequestMapping("/api/v1/talla")
 public class TallaController {
     @Autowired
     private TallaService tallaService;
 
+    @Operation(summary = "Listar todas las tallas")
     @GetMapping
     public ResponseEntity<List<TallaDTO>> todasLasTallas(){
         List<TallaDTO> talla = tallaService.obtenerTodas();
@@ -34,6 +39,7 @@ public class TallaController {
         return new ResponseEntity<>(talla,HttpStatus.OK);
     } 
 
+    @Operation(summary = "Buscar talla por ID")
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarTallaPorId(@PathVariable Integer id){
         try {
@@ -44,6 +50,7 @@ public class TallaController {
         }
     }
 
+    @Operation(summary = "Registrar nueva talla")
     @PostMapping
     public ResponseEntity<?> agregartalla (@Valid @RequestBody Talla talla){
         try {
@@ -53,6 +60,7 @@ public class TallaController {
         }
     }
 
+    @Operation(summary = "Actualizar talla")
     @PatchMapping("/{id}")
     public ResponseEntity<?> editarMarca(@PathVariable Integer id,@Valid @RequestBody Talla talla){
         try {
@@ -63,6 +71,7 @@ public class TallaController {
         }
     }
 
+    @Operation(summary = "Eliminar talla por ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminarTalla (@PathVariable Integer id){
         String resultado = tallaService.eliminarTalla(id);

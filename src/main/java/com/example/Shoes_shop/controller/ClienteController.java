@@ -18,8 +18,11 @@ import com.example.Shoes_shop.dto.ClienteDTO;
 import com.example.Shoes_shop.model.Cliente;
 import com.example.Shoes_shop.service.ClienteService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
+@Tag(name = "Clientes", description = "Endpoints para gestionar los clientes")
 @RestController
 @RequestMapping("/api/v1/clientes")
 public class ClienteController {
@@ -27,6 +30,7 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
+    @Operation(summary = "Listar todos los clientes")
     @GetMapping
     public ResponseEntity<List<ClienteDTO>> todosLosClientes(){
         List<ClienteDTO> clientes = clienteService.obtenertodos();
@@ -36,6 +40,7 @@ public class ClienteController {
         return new ResponseEntity<>(clientes,HttpStatus.OK);
     }
 
+    @Operation(summary = "Buscar cliente por ID")
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarClientePorId(@PathVariable Integer id){
         try {
@@ -46,6 +51,7 @@ public class ClienteController {
         }
     }
 
+    @Operation(summary = "Registrar nuevo cliente")
     @PostMapping
     public ResponseEntity<?> agregarCliente (@Valid @RequestBody Cliente cliente){
         try {
@@ -55,6 +61,7 @@ public class ClienteController {
         }
     }
 
+    @Operation(summary = "Modificar campos de un cliente")
     @PatchMapping({"/{id}"})
     public ResponseEntity<?> editarCliente(@PathVariable Integer id,@RequestBody Cliente cliente){
         try {
@@ -65,6 +72,7 @@ public class ClienteController {
         }
     } 
 
+    @Operation(summary = "Actualizar cliente completo")
     @PutMapping("/{id}")
     public ResponseEntity<?> actualizarCliente(@PathVariable Integer id, @Valid @RequestBody Cliente cliente){
         try {

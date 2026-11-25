@@ -18,10 +18,11 @@ import com.example.Shoes_shop.dto.MetodoEnvioDTO;
 import com.example.Shoes_shop.model.MetodoEnvio;
 import com.example.Shoes_shop.service.MetodoEnvioService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
-@Tag(name = "MetodoEnvioController",description = "Endpoints para gestionar el metod en que se enviara la zapatilla")
+@Tag(name = "Métodos de Envío", description = "Endpoints para gestionar los métodos de envío disponibles")
 @RestController
 @RequestMapping("/api/v1/metodos_envio")
 public class MetodoEnvioController {
@@ -29,6 +30,7 @@ public class MetodoEnvioController {
     @Autowired
     private MetodoEnvioService metodoEnvioService;
 
+    @Operation(summary = "Listar todos los métodos de envío")
     @GetMapping
     public ResponseEntity<List<MetodoEnvioDTO>> todosLosEnvios(){
         List<MetodoEnvioDTO> envios = metodoEnvioService.obtenerTodas();
@@ -38,6 +40,7 @@ public class MetodoEnvioController {
         return new ResponseEntity<>(envios, HttpStatus.OK);
     }
 
+    @Operation(summary = "Buscar método de envío por ID")
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarEnvioPorId(@PathVariable Integer id){
         try {
@@ -48,6 +51,7 @@ public class MetodoEnvioController {
         }
     }
 
+    @Operation(summary = "Registrar nuevo método de envío")
     @PostMapping
     public ResponseEntity<?> agregarMetodoPago(@Valid @RequestBody MetodoEnvio metodoEnvio){
         try {
@@ -57,6 +61,7 @@ public class MetodoEnvioController {
         }
     }
 
+    @Operation(summary = "Actualizar método de envío")
     @PatchMapping("/{id}")
     public ResponseEntity<?> editarEnvio(@PathVariable Integer id, @Valid @RequestBody MetodoEnvio metodoEnvio){
         try {
@@ -67,6 +72,7 @@ public class MetodoEnvioController {
         }
     }
 
+    @Operation(summary = "Eliminar método de envío")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminarMetodoEnvio(@PathVariable Integer id){
         String resultado = metodoEnvioService.eliminarMetodoEnvio(id);
