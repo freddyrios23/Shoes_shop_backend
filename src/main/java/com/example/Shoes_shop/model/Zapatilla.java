@@ -40,6 +40,9 @@ public class Zapatilla {
     @Min(value = 1)
     private Integer precio;
 
+    @Column(length = 255)
+    private String imagen;
+
     @ManyToOne
     @JoinColumn(name = "marca_id")
     private Marca marca;
