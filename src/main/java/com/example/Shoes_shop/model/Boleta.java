@@ -54,4 +54,8 @@ public class Boleta {
     @ManyToOne
     @JoinColumn(name = "metodoPago_id", referencedColumnName = "id")  // <- Obliga a buscar camelCase
     private MetodoPago metodoPago;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 }

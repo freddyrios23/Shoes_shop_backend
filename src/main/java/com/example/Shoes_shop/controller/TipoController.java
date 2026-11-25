@@ -1,4 +1,4 @@
-package com.example.Shoes_shop.controllerV2;
+package com.example.Shoes_shop.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -58,7 +58,7 @@ public class TipoController {
 
         return ResponseEntity.ok(CollectionModel.of(
                 tipos,
-                linkTo(methodOn(TiposControllerV2.class).todos()).withSelfRel()
+                linkTo(methodOn(TipoController.class).todos()).withSelfRel()
         ));
     }
 
@@ -88,7 +88,7 @@ public class TipoController {
         try {
             TipoDTO newTipo = tipoService.guardaTipo(tipo);
             return ResponseEntity
-                    .created(linkTo(methodOn(TipoControllerV2.class).porId(newTipo.getId())).toUri())
+                    .created(linkTo(methodOn(TipoController.class).porId(newTipo.getId())).toUri())
                     .body(assembler.toModel(newTipo));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();

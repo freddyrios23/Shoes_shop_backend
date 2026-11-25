@@ -1,4 +1,4 @@
-package com.example.Shoes_shop.controllerV2;
+package com.example.Shoes_shop.controller;
 
 import java.util.stream.Collectors;
 
@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,14 +23,13 @@ import java.util.List;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @Tag(name = "Boletas",description = "Endpoints para gestionar las boletas de las zapatillas")
-@RestController("BoletaControllerV1")
+@RestController
 @RequestMapping("/api/v1/boleta")
-public class BoletaControllerV2 {
+public class BoletaController {
 
 @Autowired
     private BoletaService boletaService;
@@ -48,7 +48,7 @@ public class BoletaControllerV2 {
 
         return ResponseEntity.ok(CollectionModel.of(
                 boletas,
-                linkTo(methodOn(BoletaControllerV2.class).todas()).withSelfRel()
+                linkTo(methodOn(BoletaController.class).todas()).withSelfRel()
         ));
     }
 
@@ -68,11 +68,10 @@ public class BoletaControllerV2 {
     @PostMapping(produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<BoletaDTO>> registrar(@Valid @RequestBody Boleta boleta) {
         try {
-            // El servicio ahora sí devuelve un BoletaDTO de forma correcta
             BoletaDTO newBoletaDTO = boletaService.guardarBoleta(boleta); 
             
             return ResponseEntity
-                    .created(linkTo(methodOn(BoletaControllerV1.class).porId(newBoletaDTO.getId())).toUri())
+                    .created(linkTo(methodOn(BoletaController.class).porId(newBoletaDTO.getId())).toUri())
                     .body(assembler.toModel(newBoletaDTO));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();

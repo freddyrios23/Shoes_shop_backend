@@ -1,4 +1,4 @@
-package com.example.Shoes_shop.controllerV2;
+package com.example.Shoes_shop.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,7 +49,7 @@ public class TiposController {
 
         return ResponseEntity.ok(CollectionModel.of(
                 tipos,
-                linkTo(methodOn(TipoControllerV2.class).todos()).withSelfRel()
+                linkTo(methodOn(TiposController.class).todos()).withSelfRel()
         ));
     }
 
@@ -62,7 +62,7 @@ public class TiposController {
             String resultado = tiposService.guardarRelacion(relacion);
 
             EntityModel<String> recurso = EntityModel.of(resultado,
-                    linkTo(methodOn(TiposControllerV2.class).todos()).withRel("tipos_zapatillas")
+                    linkTo(methodOn(TiposController.class).todos()).withRel("tipos_zapatillas")
             );
 
             return ResponseEntity

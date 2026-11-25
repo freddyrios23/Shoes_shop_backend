@@ -4,7 +4,7 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
-import com.example.Shoes_shop.controllerV2.BoletasControllerV2;
+import com.example.Shoes_shop.controller.BoletasController;
 import com.example.Shoes_shop.model.Boletas;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -16,7 +16,7 @@ public class BoletasModelAssembler implements RepresentationModelAssembler<Bolet
     public EntityModel<Boletas> toModel(Boletas boletas) {
     return EntityModel.of(boletas,
 
-            linkTo(methodOn(BoletasControllerV2.class).todas()).withRel("boletas_boleta")
+            linkTo(methodOn(BoletasController.class).todas()).withRel("boletas_boleta")
         );
     }
 }

@@ -1,4 +1,4 @@
-package com.example.Shoes_shop.controllerV2;
+package com.example.Shoes_shop.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,6 +10,7 @@ import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +19,6 @@ import com.example.Shoes_shop.model.Boletas;
 import com.example.Shoes_shop.service.BoletasService;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 
@@ -37,7 +37,7 @@ public class BoletasController {
     private BoletasModelAssembler assembler;
 
     @Operation(
-        summary = "Listar la relación de boletas asociadas a zapatillas"
+        summary = "Listar la relaciÃ³n de boletas asociadas a zapatillas"
     )
     @GetMapping(produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<CollectionModel<EntityModel<Boletas>>> todas() {
@@ -64,7 +64,7 @@ public class BoletasController {
             String resultado = boletasService.guardarRelacion(relacion);
 
             EntityModel<String> recurso = EntityModel.of(resultado,
-                    linkTo(methodOn(BoletasControllerV2.class).todas()).withRel("boletas_zapatillas")
+                    linkTo(methodOn(BoletasController.class).todas()).withRel("boletas_zapatillas")
             );
 
             return ResponseEntity

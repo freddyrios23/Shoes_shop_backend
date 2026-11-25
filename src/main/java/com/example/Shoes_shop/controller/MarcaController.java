@@ -1,4 +1,4 @@
-package com.example.Shoes_shop.controllerV2;
+package com.example.Shoes_shop.controller;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -62,7 +62,7 @@ public class MarcaController {
 
     @Operation(
         summary = "Buscar marca por ID",
-        description = "Obtiene una marca específica según su id"
+        description = "Obtiene una marca especÃ­fica segÃºn su id"
     )
     @GetMapping(value = "/{id}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<MarcaDTO>> porId(@PathVariable Integer id) {
@@ -86,7 +86,7 @@ public class MarcaController {
         try {
             MarcaDTO newMarca = marcaService.guardarMarca(marca);
             return ResponseEntity
-                    .created(linkTo(methodOn(MarcaControllerV2.class).porId(newMarca.getId())).toUri())
+                    .created(linkTo(methodOn(MarcaController.class).porId(newMarca.getId())).toUri())
                     .body(assembler.toModel(newMarca));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
@@ -113,7 +113,7 @@ public class MarcaController {
 
     @Operation(
         summary = "Eliminar marca",
-        description = "Elimina una marca según su id"
+        description = "Elimina una marca segÃºn su id"
     )
     @DeleteMapping(value = "/{id}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<?> deleteMarca(@PathVariable Integer id){

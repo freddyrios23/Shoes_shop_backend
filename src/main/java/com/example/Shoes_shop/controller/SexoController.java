@@ -1,4 +1,4 @@
-package com.example.Shoes_shop.controllerV2;
+package com.example.Shoes_shop.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -58,7 +58,7 @@ public class SexoController {
 
         return ResponseEntity.ok(CollectionModel.of(
                 sexos,
-                linkTo(methodOn(SexoControllerV2.class).todos()).withSelfRel()
+                linkTo(methodOn(SexoController.class).todos()).withSelfRel()
         ));
     }
 
@@ -88,7 +88,7 @@ public class SexoController {
         try {
             SexoDTO newSexo = sexoService.guardarSexo(sexo);
             return ResponseEntity
-                    .created(linkTo(methodOn(SexoControllerV2.class).porId(newSexo.getId())).toUri())
+                    .created(linkTo(methodOn(SexoController.class).porId(newSexo.getId())).toUri())
                     .body(assembler.toModel(newSexo));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();

@@ -23,9 +23,5 @@ public class Tallas {
 
     @ManyToOne
     @JoinColumn(name = "talla_id")
-    private Tallas talla;
-
-    @ManyToOne
-    @JoinColumn(name = "numero")
-    private Tallas numero;
+    private Talla talla;
 }

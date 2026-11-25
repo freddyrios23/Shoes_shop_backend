@@ -129,7 +129,7 @@ VALUES
 (1,2),
 (2,1);
 
-//Tabla boletas
+-- Tabla boletas
 
 CREATE TABLE metodoEnvio(
     id INT AUTO_INCREMENT PRIMARY KEY,

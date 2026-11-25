@@ -7,7 +7,7 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
-import com.example.Shoes_shop.controllerV2.ZapatillaControllerV2;
+import com.example.Shoes_shop.controller.ZapatillaController;
 import com.example.Shoes_shop.dto.ZapatillaDTO;
 
 @Component
@@ -16,8 +16,8 @@ public class ZapatillaModelAssembler implements RepresentationModelAssembler<Zap
     @Override
     public EntityModel<ZapatillaDTO> toModel(ZapatillaDTO zapatilla) {
         return EntityModel.of(zapatilla,
-                linkTo(methodOn(ZapatillaControllerV2.class).porId(zapatilla.getId())).withSelfRel(),
-                linkTo(methodOn(ZapatillaControllerV2.class).todas()).withRel("zapatillas")
+                linkTo(methodOn(ZapatillaController.class).porId(zapatilla.getId())).withSelfRel(),
+                linkTo(methodOn(ZapatillaController.class).todas()).withRel("zapatillas")
         );
     }
 }

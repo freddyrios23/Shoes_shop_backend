@@ -1,4 +1,4 @@
-package com.example.Shoes_shop.controllerV2;
+package com.example.Shoes_shop.controller;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -49,7 +49,7 @@ public class MaterialesController {
 
         return ResponseEntity.ok(CollectionModel.of(
                 materiales,
-                linkTo(methodOn(MaterialesControllerV2.class).todos()).withSelfRel()
+                linkTo(methodOn(MaterialesController.class).todos()).withSelfRel()
         ));
     }
     @Operation(
@@ -65,7 +65,7 @@ public class MaterialesController {
             );
 
             return ResponseEntity
-                    .created(linkTo(methodOn(MaterialesControllerV2.class).todos()).toUri())
+                    .created(linkTo(methodOn(MaterialesController.class).todos()).toUri())
                     .body(recurso);
 
         } catch (Exception e) {

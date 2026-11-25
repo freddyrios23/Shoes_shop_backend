@@ -7,7 +7,7 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
-import com.example.Shoes_shop.controllerV2.MaterialesControllerV2;
+import com.example.Shoes_shop.controller.MaterialesController;
 import com.example.Shoes_shop.model.Materiales;
 
 
@@ -17,7 +17,7 @@ public class MaterialesModelAssembler implements RepresentationModelAssembler<Ma
     @Override
     public EntityModel<Materiales> toModel(Materiales materiales) {
         return EntityModel.of(materiales,
-                linkTo(methodOn(MaterialesControllerV2.class).todos()).withRel("material_zapatillas")
+                linkTo(methodOn(MaterialesController.class).todos()).withRel("material_zapatillas")
         );
     }
 }

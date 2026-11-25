@@ -1,4 +1,4 @@
-package com.example.Shoes_shop.controllerV2;
+package com.example.Shoes_shop.controller;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -55,7 +55,7 @@ public class MaterialController {
 
         return ResponseEntity.ok(CollectionModel.of(
                 material,
-                linkTo(methodOn(MaterialControllerV2.class).todos()).withSelfRel()
+                linkTo(methodOn(MaterialController.class).todos()).withSelfRel()
         ));
     }
 

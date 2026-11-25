@@ -1,4 +1,4 @@
-package com.example.Shoes_shop.controllerV2;
+package com.example.Shoes_shop.controller;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -32,7 +32,7 @@ import jakarta.validation.Valid;
 @Tag(name = "Colores",description = "Endpoints para gestionar los colores disponibles de las zapatillas")
 @RestController
 @RequestMapping("/api/v1/color")
-public class ColorControllerV2 {
+public class ColorController {
     @Autowired
     private ColorService colorService;
 
@@ -61,7 +61,7 @@ public class ColorControllerV2 {
 
     @Operation(
         summary = "Buscar color por ID",
-        description = "Obtiene un color específico según su identificador"
+        description = "Obtiene un color especÃ­fico segÃºn su identificador"
     )
     @GetMapping(value = "/{id}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<ColorDTO>> porId(@PathVariable Integer id) {
@@ -85,7 +85,7 @@ public class ColorControllerV2 {
         try {
             ColorDTO newColor = colorService.guardarColor(color);
             return ResponseEntity
-                    .created(linkTo(methodOn(ColorControllerV2.class).porId(newColor.getId())).toUri())
+                    .created(linkTo(methodOn(ColorController.class).porId(newColor.getId())).toUri())
                     .body(assembler.toModel(newColor));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
@@ -112,7 +112,7 @@ public class ColorControllerV2 {
 
     @Operation(
         summary = "Eliminar color",
-        description = "Elimina un color según su identificador"
+        description = "Elimina un color segÃºn su identificador"
     )
     @DeleteMapping(value = "/{id}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<?> deleteColor(@PathVariable Integer id){

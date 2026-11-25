@@ -1,4 +1,4 @@
-package com.example.Shoes_shop.controllerV2;
+package com.example.Shoes_shop.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -58,7 +58,7 @@ public class ZapatillaController {
 
         return ResponseEntity.ok(CollectionModel.of(
                 zapatillas,
-                linkTo(methodOn(ZapatillaControllerV2.class).todas()).withSelfRel()
+                linkTo(methodOn(ZapatillaController.class).todas()).withSelfRel()
         ));
     }
 
@@ -88,7 +88,7 @@ public class ZapatillaController {
         try {
             ZapatillaDTO newZapatilla = zapatillaService.guardarZapatilla(zapatilla);
             return ResponseEntity
-                    .created(linkTo(methodOn(ZapatillaControllerV2.class).porId(newZapatilla.getId())).toUri())
+                    .created(linkTo(methodOn(ZapatillaController.class).porId(newZapatilla.getId())).toUri())
                     .body(assembler.toModel(newZapatilla));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();

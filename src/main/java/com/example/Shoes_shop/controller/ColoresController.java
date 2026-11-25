@@ -1,4 +1,4 @@
-package com.example.Shoes_shop.controllerV2;
+package com.example.Shoes_shop.controller;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -27,7 +27,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Colores",description = "Endpoints para gestionar los colores de las zapatillas")
 @RestController
 @RequestMapping("/api/v1/colores")
-public class ColoresControllerV2 {
+public class ColoresController {
     
     @Autowired
     private ColoresService coloresService;
@@ -50,7 +50,7 @@ public class ColoresControllerV2 {
 
         return ResponseEntity.ok(CollectionModel.of(
                 colores,
-                linkTo(methodOn(ColoresControllerV2.class).todos()).withSelfRel()
+                linkTo(methodOn(ColoresController.class).todos()).withSelfRel()
         ));
     }
 
@@ -63,11 +63,11 @@ public class ColoresControllerV2 {
             String resultado = coloresService.guardarRelacion(relacion);
 
             EntityModel<String> recurso = EntityModel.of(resultado,
-                    linkTo(methodOn(ColoresControllerV1.class).todos()).withRel("color_zapatillas")
+                    linkTo(methodOn(ColoresController.class).todos()).withRel("color_zapatillas")
             );
 
             return ResponseEntity
-                    .created(linkTo(methodOn(ColoresControllerV2.class).todos()).toUri())
+                    .created(linkTo(methodOn(ColoresController.class).todos()).toUri())
                     .body(recurso);
 
         } catch (Exception e) {
