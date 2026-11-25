@@ -70,6 +70,10 @@ public class ZapatillaService {
             zapato.setPrecio(zapatilla.getPrecio());
         }
 
+        if (zapatilla.getImagen() != null) {
+            zapato.setImagen(zapatilla.getImagen());
+        }
+
         if (zapatilla.getMarca() != null) {
             zapato.setMarca(zapatilla.getMarca());
         }
