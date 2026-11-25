@@ -65,6 +65,16 @@ public class BoletaController {
         }
     }
 
+    @GetMapping(value = "/buscar-por-zapatilla/{zapatillaId}", produces = MediaTypes.HAL_JSON_VALUE)
+    public ResponseEntity<EntityModel<BoletaDTO>> porZapatilla(@PathVariable Integer zapatillaId) {
+        try {
+            BoletaDTO dto = boletaService.buscarPorZapatilla(zapatillaId);
+            return ResponseEntity.ok(assembler.toModel(dto));
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping(produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<BoletaDTO>> registrar(@Valid @RequestBody Boleta boleta) {
         try {

@@ -25,7 +25,7 @@ public class ZapatillasValidaciones {
         try {
             BoletaDTO resultado = webClientBuilder.build()
                 .get()
-                .uri("http://BOLETAS/api/v1/boletas/buscar-por-zapatilla/" + id)
+                .uri("http://shoes-shop/api/v1/boleta/buscar-por-zapatilla/" + id)
                 .retrieve()
                 .onStatus(HttpStatusCode::is4xxClientError, response -> Mono.empty())
                 .bodyToMono(BoletaDTO.class)
