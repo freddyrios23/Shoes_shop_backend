@@ -18,9 +18,11 @@ import com.example.Shoes_shop.dto.MetodoPagoDTO;
 import com.example.Shoes_shop.model.MetodoPago;
 import com.example.Shoes_shop.service.MetodoPagoService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-@Tag(name = "Colores",description = "Endpoints para gestionar la forma de pago de las zapatillas")
+
+@Tag(name = "Métodos de Pago", description = "Endpoints para gestionar los métodos de pago")
 @RestController
 @RequestMapping("/api/v1/metodo_pago")
 public class MetodoPagoController {
@@ -28,6 +30,7 @@ public class MetodoPagoController {
     @Autowired
     private MetodoPagoService metodoPagoService;
 
+    @Operation(summary = "Listar todos los métodos de pago")
     @GetMapping
     public ResponseEntity<List<MetodoPagoDTO>> obtenerTodosLosPagos(){
         List<MetodoPagoDTO> metodosDePago = metodoPagoService.obtenerTodos();
@@ -37,6 +40,7 @@ public class MetodoPagoController {
         return new ResponseEntity<>(metodosDePago, HttpStatus.OK);
     }
 
+    @Operation(summary = "Buscar método de pago por ID")
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarMetodoPagoPorId(@PathVariable Integer id){
         try {
@@ -46,6 +50,7 @@ public class MetodoPagoController {
         }
     }
 
+    @Operation(summary = "Registrar nuevo método de pago")
     @PostMapping
     public ResponseEntity<?> agregarMetodoPago(@Valid @RequestBody MetodoPago metodoPago){
         try {
@@ -55,6 +60,7 @@ public class MetodoPagoController {
         }
     }
 
+    @Operation(summary = "Actualizar método de pago")
     @PutMapping("/{id}")
     public ResponseEntity<?> actulizarMetodoPago(@PathVariable Integer id, @Valid @RequestBody MetodoPago metodoPago){
         try {
@@ -64,6 +70,7 @@ public class MetodoPagoController {
         }
     }
 
+    @Operation(summary = "Eliminar método de pago")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminarMetodoPago(@PathVariable Integer id){
         try {

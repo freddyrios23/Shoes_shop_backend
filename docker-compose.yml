@@ -1,0 +1,46 @@
+services:
+  mysqldb:
+    image: mysql:8.4
+    container_name: shoes_shop_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: shoes_shop
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./src/db/ShoesShop_DB.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - shoes_shop_net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: shoes_shop_backend
+    restart: always
+    depends_on:
+      mysqldb:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      DB_URL: jdbc:mysql://mysqldb:3306/shoes_shop?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
+    networks:
+      - shoes_shop_net
+
+networks:
+  shoes_shop_net:
+    driver: bridge
+
+volumes:
+  mysql_data:
