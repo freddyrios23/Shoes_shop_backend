@@ -23,20 +23,22 @@ import java.util.List;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
-@Tag(name = "Boletas",description = "Endpoints para gestionar las boletas de las zapatillas")
+@Tag(name = "Boletas", description = "Endpoints para gestionar las boletas de las zapatillas")
 @RestController
 @RequestMapping("/api/v1/boleta")
 public class BoletaController {
 
-@Autowired
+    @Autowired
     private BoletaService boletaService;
 
     @Autowired
     private BoletaModelAssembler assembler;
 
+    @Operation(summary = "Listar todas las boletas")
     @GetMapping(produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<CollectionModel<EntityModel<BoletaDTO>>> todas() {
     List<EntityModel<BoletaDTO>> boletas = boletaService.obtenerTodas().stream()
@@ -52,6 +54,7 @@ public class BoletaController {
         ));
     }
 
+    @Operation(summary = "Buscar boleta por ID")
     @GetMapping(value = "/{id}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<BoletaDTO>> porId(@PathVariable Integer id) {
         try {
@@ -65,6 +68,7 @@ public class BoletaController {
         }
     }
 
+    @Operation(summary = "Buscar boleta asociada a una zapatilla")
     @GetMapping(value = "/buscar-por-zapatilla/{zapatillaId}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<BoletaDTO>> porZapatilla(@PathVariable Integer zapatillaId) {
         try {
@@ -75,6 +79,7 @@ public class BoletaController {
         }
     }
 
+    @Operation(summary = "Registrar nueva boleta")
     @PostMapping(produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<BoletaDTO>> registrar(@Valid @RequestBody Boleta boleta) {
         try {

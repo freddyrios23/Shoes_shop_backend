@@ -18,8 +18,11 @@ import com.example.Shoes_shop.dto.ComunaDTO;
 import com.example.Shoes_shop.model.Comuna;
 import com.example.Shoes_shop.service.ComunaService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
+@Tag(name = "Comunas", description = "Endpoints para gestionar comunas")
 @RestController
 @RequestMapping("/api/v1/comunas")
 public class ComunaController {
@@ -27,6 +30,7 @@ public class ComunaController {
     @Autowired
     private ComunaService comunaService;
 
+    @Operation(summary = "Listar todas las comunas")
     @GetMapping
     public ResponseEntity<List<ComunaDTO>> todasLascomunas(){
         List<ComunaDTO> comunas = comunaService.obtenerTodas();
@@ -36,6 +40,7 @@ public class ComunaController {
         return new ResponseEntity<>(comunas,HttpStatus.OK);
     }
 
+    @Operation(summary = "Buscar comuna por ID")
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarComunaPorId(@PathVariable Integer id){
         try {
@@ -46,6 +51,7 @@ public class ComunaController {
         }    
     }
 
+    @Operation(summary = "Registrar nueva comuna")
     @PostMapping
     public ResponseEntity<?> agregarComuna(@Valid @RequestBody Comuna comuna){
         try {
@@ -55,6 +61,7 @@ public class ComunaController {
         }
     }
 
+    @Operation(summary = "Actualizar comuna")
     @PatchMapping("/{id}")
     public ResponseEntity<?> editarComuna (@PathVariable Integer id , @Valid @RequestBody Comuna comuna){
         try {
@@ -65,6 +72,7 @@ public class ComunaController {
         }
     }
 
+    @Operation(summary = "Eliminar comuna por ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminarComuna(@PathVariable Integer id){
         String resultado = comunaService.eliminarComuna(id);

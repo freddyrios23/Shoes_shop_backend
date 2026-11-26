@@ -11,8 +11,11 @@ import com.example.Shoes_shop.dto.RegionDTO;
 import com.example.Shoes_shop.model.Region;
 import com.example.Shoes_shop.service.RegionService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
+@Tag(name = "Regiones", description = "Endpoints para gestionar regiones")
 @RestController
 @RequestMapping("/api/v1/region")
 public class RegionController {
@@ -20,6 +23,7 @@ public class RegionController {
     @Autowired
     private RegionService regionService;
 
+    @Operation(summary = "Listar todas las regiones")
     @GetMapping
     public ResponseEntity<List<RegionDTO>> obtenerTodas() {
         List<RegionDTO> regiones = regionService.obtenerTodas();
@@ -31,6 +35,7 @@ public class RegionController {
         return new ResponseEntity<>(regiones, HttpStatus.OK);
     }
 
+    @Operation(summary = "Buscar región por ID")
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarRegionPorId(@PathVariable Integer id) {
         try {
@@ -40,6 +45,7 @@ public class RegionController {
         }
     }
 
+    @Operation(summary = "Registrar nueva región")
     @PostMapping
     public ResponseEntity<?> agregarRegion(@Valid @RequestBody Region region) {
         try {
@@ -49,6 +55,7 @@ public class RegionController {
         }
     }
 
+    @Operation(summary = "Actualizar región")
     @PutMapping("/{id}")
     public ResponseEntity<?> actualizarRegion(@PathVariable Integer id, @RequestBody Region region) {
         try {
@@ -58,6 +65,7 @@ public class RegionController {
         }
     }
 
+    @Operation(summary = "Eliminar región")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminar(@PathVariable Integer id) {
         try {
