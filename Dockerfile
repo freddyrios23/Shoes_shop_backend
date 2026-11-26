@@ -1,29 +1,31 @@
+
 # Etapa 1: Compilación de la aplicación
-FROM eclipse-temurin:21-jdk-alpine AS builder
+FROM maven:3.9-eclipse-temurin-21 AS build
+
 WORKDIR /app
 
-# Copiar archivos de Maven Wrapper y dependencias
-COPY .mvn/ .mvn/
-COPY mvnw pom.xml ./
-RUN ./mvnw dependency:go-offline -B
-
-# Copiar código fuente y compilar omitiendo pruebas para velocidad
+# Copiar archivos necesarios para Maven
+COPY pom.xml .
 COPY src ./src
-RUN ./mvnw clean package -DskipTests -B
 
-# Etapa 2: Imagen final liviana para ejecución
+# Compilar el proyecto sin ejecutar pruebas
+RUN mvn clean package -DskipTests
+
+# Etapa 2: Imagen final para ejecutar la aplicación
 FROM eclipse-temurin:21-jre-alpine
+
 WORKDIR /app
 
-# Crear usuario no root para seguridad
+# Crear usuario sin privilegios de administrador
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 USER appuser
 
-# Copiar el jar compilado
-COPY --from=builder /app/target/*.jar app.jar
+# Copiar el archivo JAR generado
+COPY --from=build /app/target/*.jar app.jar
 
-# Variables de entorno por defecto
-ENV PORT=8080
-EXPOSE 8080
+# Puerto utilizado por Render
+ENV PORT=10000
+EXPOSE 10000
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Ejecutar Spring Boot utilizando el puerto de Render
+ENTRYPOINT ["sh", "-c", "java -Dserver.address=0.0.0.0 -Dserver.port=${PORT:-10000} -jar app.jar"]
